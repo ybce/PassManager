@@ -18,7 +18,7 @@ else:
     name_in = (name,)
     con.execute('''CREATE TABLE passwords ( pid INTEGER primary key, website VARCHAR(50) , password VARCHAR(150), user VARCHAR(50) )''')
     con.execute('''CREATE TABLE users ( uid INTEGER primary key, user VARCHAR(50) , pin VARCHAR(150) )''')
-    con.execute('INSERT INTO users (user,pin) VALUES (?, 6421)', name_in)
+
 
 c = con.cursor()
 
@@ -106,12 +106,14 @@ if __name__ == "__main__":
         web_in = (web,)
         c.execute("SELECT * FROM users WHERE user = ? ", web_in)
         exist = c.fetchone()[2]
+        check_pin = cipher.decrypt(exist)
         if exist is None:
             sys.exit("No user found, Quitting!")
         else:
             print "User found"
             pin = raw_input("Please enter your pincode: ")
-            if cipher.encrypt(pin) == exist:
+
+            if pin.strip() == check_pin:
                 print "Identity verified"
                 decision(web)
             else:
