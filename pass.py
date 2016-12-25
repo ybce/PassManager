@@ -5,13 +5,14 @@ import sys
 from Crypto.Cipher import AES
 from Crypto import Random
 
-
+#Connecting and
 db = "pass.db"
 #create new DB, create table stocks
 con = sqlite3.connect(db)
 #con.execute('''CREATE TABLE passwords ( pid INTEGER primary key, website VARCHAR(50) , password VARCHAR(150) )''')
 c = con.cursor()
 
+#Encryption/Decryption class
 class AESCipher(object):
 
     def __init__(self, key):
@@ -40,8 +41,10 @@ class AESCipher(object):
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
+#Initializing cipher object
 cipher =AESCipher(key='MyKey')
 
+#Check if a string represents an int
 def RepresentsInt(s):
     try:
         int(s)
@@ -49,7 +52,7 @@ def RepresentsInt(s):
     except ValueError:
         return False
 
-
+#Method that allows user to store a new password
 def store_password(user):
     website = raw_input('Please enter what the password is for? ')
     new_pass = raw_input('Please enter a password: ')
@@ -59,7 +62,7 @@ def store_password(user):
     print ("Password has been added successfully!")
     con.commit()
 
-
+#Method that takes user through retrieving a password
 def retrieve_password(user):
     cat = raw_input("What website do you need? ")
     db_in = [cat,user]

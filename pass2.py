@@ -7,21 +7,22 @@ from Crypto import Random
 import os
 
 
-db = "dist/pass2.db"
+db = "pass2.db"
 
-#create new DB, create table stocks
+#Creates new database or finds one in path
 if os.path.isfile(db):
     con = sqlite3.connect(db)
 else:
     name = "Youssef"
     con = sqlite3.connect(db)
     name_in = (name,)
-    con.execute('''CREATE TABLE passwords ( pid INTEGER primary key, website VARCHAR(50) , password VARCHAR(150) )''')
-    con.execute('''CREATE TABLE users ( uid INTEGER primary key, user VARCHAR(50) , pin INTEGER )''')
+    con.execute('''CREATE TABLE passwords ( pid INTEGER primary key, website VARCHAR(50) , password VARCHAR(150), user VARCHAR(50) )''')
+    con.execute('''CREATE TABLE users ( uid INTEGER primary key, user VARCHAR(50) , pin VARCHAR(150) )''')
     con.execute('INSERT INTO users (user,pin) VALUES (?, 6421)', name_in)
 
 c = con.cursor()
 
+#Encryption/Decryption class
 class AESCipher(object):
 
     def __init__(self, key):
@@ -50,58 +51,104 @@ class AESCipher(object):
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
+#Initializing cipher object
 cipher =AESCipher(key='MyKey')
 
-def store_password():
+#Check if a string represents an int
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+#Method that allows user to store a new password
+def store_password(user):
     website = raw_input('Please enter what the password is for? ')
     new_pass = raw_input('Please enter a password: ')
     hashed_password = cipher.encrypt(new_pass)
-    input_s = [website, hashed_password]
-    c.execute("INSERT INTO passwords (WEBSITE, PASSWORD) VALUES (?,?)", input_s)
+    input_s = [website, hashed_password, user]
+    c.execute("INSERT INTO passwords (WEBSITE, PASSWORD, USER) VALUES (?,?,?)", input_s)
     print ("Password has been added successfully!")
     con.commit()
 
-
-def retrieve_password():
-    pin = 0
-    cat = ""
-    web = raw_input("Who are you? ")
-    web_in = (web,)
-    c.execute("SELECT * FROM users WHERE user = ? ", web_in)
-    exist = c.fetchone()
-    if exist is None:
-        sys.exit("No user found, Quitting!")
-    else:
-        pin = raw_input("What is your pin? ")
-
-    if int(pin) == exist[2]:
-        print "Identity verified"
-        c.execute("SELECT website FROM passwords")
-        result = c.fetchall()
-        print "Websites that are available: "
-        for i in range(0, len(result)):
-            print result[i][0]
-        cat = raw_input("What website do you need? ")
-    else:
-        sys.exit("Wrong pin code, Quitting!")
-    cat_in = (cat.strip(),)
-    c.execute("SELECT password FROM passwords WHERE website= ?", cat_in)
+#Method that takes user through retrieving a password
+def retrieve_password(user):
+    cat = raw_input("What website do you need? ")
+    db_in = [cat,user]
+    c.execute("SELECT password FROM passwords WHERE website= ? AND user = ? ", db_in)
     result = c.fetchone()[0]
     print cipher.decrypt(result)
 
-if __name__ == "__main__":
+
+#Allows user to decide whether he wants to store or retrieve passwords
+def decision(user):
     valid = False
     while (valid != True):
         decision = raw_input("Do you want to retrieve or store a password? (R/S)? ")
         if decision.strip() == 'S':
             valid = True
-            store_password()
+            store_password(user)
         elif decision.strip() == 'R':
             valid = True
-            retrieve_password()
+            retrieve_password(user)
         else:
             print "Please enter a valid symbol!"
-    raw_input("Press Enter to Quit!")
+
+
+#Main method: Logs in the user or allows you to create a new user
+if __name__ == "__main__":
+    pin = 0
+    cat = ""
+    password = ""
+    web = raw_input("Who are you? (Type New to create a user)")
+    if web != "New":
+        web_in = (web,)
+        c.execute("SELECT * FROM users WHERE user = ? ", web_in)
+        exist = c.fetchone()[2]
+        if exist is None:
+            sys.exit("No user found, Quitting!")
+        else:
+            print "User found"
+            pin = raw_input("Please enter your pincode: ")
+            if cipher.encrypt(pin) == exist:
+                print "Identity verified"
+                decision(web)
+            else:
+                sys.exit("Wrong pin code, Quitting!")
+    elif web == "New":
+        user = raw_input("Please enter your username: ")
+        flag = False
+        while(flag != True):
+            password = raw_input("Please enter a 4-digit pincode: ")
+            if (len(password.strip()) == 4) & (RepresentsInt(password.strip())):
+                flag = True
+            else:
+                print "Invalid Pincode"
+        input2_s = [user, cipher.encrypt(password)]
+        c.execute("INSERT INTO users (user, pin) VALUES (?,?)", input2_s)
+        print "User has been added"
+        decision(user)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
