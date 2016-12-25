@@ -74,8 +74,14 @@ def store_password(user):
 
 #Method that takes user through retrieving a password
 def retrieve_password(user):
+    user_in = (user,)
+    c.execute("SELECT website FROM passwords where user = ?", user_in)
+    result = c.fetchall()
+    print "Your websites are: "
+    for i in range(0, len(result)):
+        print result[i][0]
     cat = raw_input("What website do you need? ")
-    db_in = [cat,user]
+    db_in = [cat, user]
     c.execute("SELECT password FROM passwords WHERE website= ? AND user = ? ", db_in)
     result = c.fetchone()[0]
     print cipher.decrypt(result)
