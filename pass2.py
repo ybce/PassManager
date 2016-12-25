@@ -81,7 +81,7 @@ def retrieve_password(user):
     for i in range(0, len(result)):
         print result[i][0]
     cat = raw_input("What website do you need? ")
-    db_in = [cat, user]
+    db_in = [cat.strip(), user]
     c.execute("SELECT password FROM passwords WHERE website= ? AND user = ? ", db_in)
     result = c.fetchone()[0]
     print cipher.decrypt(result)
@@ -108,8 +108,8 @@ if __name__ == "__main__":
     cat = ""
     password = ""
     web = raw_input("Who are you? (Type New to create a user)")
-    if web != "New":
-        web_in = (web,)
+    if web.strip() != "New":
+        web_in = (web.strip(),)
         c.execute("SELECT * FROM users WHERE user = ? ", web_in)
         exist = c.fetchone()[2]
         check_pin = cipher.decrypt(exist)
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 flag = True
             else:
                 print "Invalid Pincode"
-        input2_s = [user, cipher.encrypt(password)]
+        input2_s = [user.strip(), cipher.encrypt(password.strip())]
         c.execute("INSERT INTO users (user, pin) VALUES (?,?)", input2_s)
         print "User has been added"
         decision(user)
