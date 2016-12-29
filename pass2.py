@@ -11,10 +11,8 @@ import os
 client = MongoClient()
 db = client.test
 users = db.users
-users.remove({})
 passwords = db.passwords
-for doc in users.find():
-    print doc['name']
+
 
 #Encryption/Decryption class
 class AESCipher(object):
@@ -62,23 +60,20 @@ def store_password(user):
     new_pass = raw_input('Please enter a password: ')
     hashed_password = cipher.encrypt(new_pass)
     input_s = [website, hashed_password, user]
-    c.execute("INSERT INTO passwords (WEBSITE, PASSWORD, USER) VALUES (?,?,?)", input_s)
+    #insert password with user given
     print ("Password has been added successfully!")
-    con.commit()
+
 
 #Method that takes user through retrieving a password
 def retrieve_password(user):
     user_in = (user,)
-    c.execute("SELECT website FROM passwords where user = ?", user_in)
-    result = c.fetchall()
-    print "Your websites are: "
-    for i in range(0, len(result)):
-        print result[i][0]
+    #fetch all websites and display them
+
     cat = raw_input("What website do you need? ")
     db_in = [cat.strip(), user]
-    c.execute("SELECT password FROM passwords WHERE website= ? AND user = ? ", db_in)
-    result = c.fetchone()[0]
-    print cipher.decrypt(result)
+    #fetch password needed and display it
+
+    print ""
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
@@ -104,8 +99,7 @@ if __name__ == "__main__":
     web = raw_input("Who are you? (Type New to create a user)")
     if web.strip() != "New":
         web_in = (web.strip(),)
-        c.execute("SELECT * FROM users WHERE user = ? ", web_in)
-        exist = c.fetchone()[2]
+        #check if user and pin match
         check_pin = cipher.decrypt(exist)
         if exist is None:
             sys.exit("No user found, Quitting!")
@@ -128,7 +122,8 @@ if __name__ == "__main__":
             else:
                 print "Invalid Pincode"
         input2_s = [user.strip(), cipher.encrypt(password.strip())]
-        c.execute("INSERT INTO users (user, pin) VALUES (?,?)", input2_s)
+        #insert new user and pincode into collection
+        
         print "User has been added"
         decision(user)
 
