@@ -1,26 +1,20 @@
 import hashlib
 import base64
-import sqlite3
 import sys
+import pymongo
+from pymongo import MongoClient
 from Crypto.Cipher import AES
 from Crypto import Random
 import os
 
 
-db = "pass2.db"
-
-#Creates new database or finds one in path
-if os.path.isfile(db):
-    con = sqlite3.connect(db)
-else:
-    name = "Youssef"
-    con = sqlite3.connect(db)
-    name_in = (name,)
-    con.execute('''CREATE TABLE passwords ( pid INTEGER primary key, website VARCHAR(50) , password VARCHAR(150), user VARCHAR(50) )''')
-    con.execute('''CREATE TABLE users ( uid INTEGER primary key, user VARCHAR(50) , pin VARCHAR(150) )''')
-
-
-c = con.cursor()
+client = MongoClient()
+db = client.test
+users = db.users
+users.remove({})
+passwords = db.passwords
+for doc in users.find():
+    print doc['name']
 
 #Encryption/Decryption class
 class AESCipher(object):
