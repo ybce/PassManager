@@ -61,6 +61,11 @@ def store_password(user):
     hashed_password = cipher.encrypt(new_pass)
     input_s = [website, hashed_password, user]
     #insert password with user given
+    passwords.insert_one({
+        "website":website,
+        "password": hashed_password,
+        "user":user
+        })
     print ("Password has been added successfully!")
 
 
@@ -68,12 +73,13 @@ def store_password(user):
 def retrieve_password(user):
     user_in = (user,)
     #fetch all websites and display them
-
+    print "Your websites are:"
+    for w in passwords.find({"user":user}):
+        print w["website"]
     cat = raw_input("What website do you need? ")
-    db_in = [cat.strip(), user]
     #fetch password needed and display it
-
-    print ""
+    p = passwords.find({"user":user, "website":cat.strip()},{"password":1})
+    print cipher.decrypt(p)
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
@@ -123,7 +129,7 @@ if __name__ == "__main__":
                 print "Invalid Pincode"
         input2_s = [user.strip(), cipher.encrypt(password.strip())]
         #insert new user and pincode into collection
-        
+
         print "User has been added"
         decision(user)
 
