@@ -102,14 +102,14 @@ if __name__ == "__main__":
     pin = 0
     cat = ""
     password = ""
-    web = raw_input("Who are you? (Type New to create a user)")
-    if web.strip() != "New":
+    web = raw_input("Who are you? (Type New to create a new user) ")
+    if web.strip().upper() != "NEW":
         web_in = (web.strip(),)
         #check if user and pin match
         user = users.find_one({"user":web}, {"user":1})
-        print user['user']
+        #print user['user']
         exist = users.find_one({"user":web},{"pincode":1})
-        print exist['pincode']
+        #print exist['pincode']
 
         if user is None:
             sys.exit("No user found, Quitting!")
@@ -122,7 +122,7 @@ if __name__ == "__main__":
                 decision(web)
             else:
                 sys.exit("Wrong pin code, Quitting!")
-    elif web == "New":
+    elif web.strip().upper() == "NEW":
         user = raw_input("Please enter your username: ")
         flag = False
         while(flag != True):

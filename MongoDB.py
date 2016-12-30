@@ -1,24 +1,28 @@
+#File to test MongoDB
 import pymongo
 from pymongo import MongoClient
+import json
+from pprint import pprint
+
 
 client = MongoClient()
 db = client.test
 users = db.users
+passwords = db.passwords
 
 
 
-user = raw_input("What is your name: ")
-pin = raw_input("Enter a pin code: ")
-post = users.insert_one({
-    "name": user,
-    "pincode": pin
-
-})
 
 
-for doc in users.find_one({"name": "Youssef"},{"_id":0}):
-    print doc
 
 
+print "Passwords Collection:"
+for w in passwords.find():
+    pprint(w)
+    print "\n"
+print "Users collections"
+for u in users.find():
+    pprint(u)
+    print "\n"
 
 
