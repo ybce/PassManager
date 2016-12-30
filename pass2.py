@@ -78,8 +78,8 @@ def retrieve_password(user):
         print w["website"]
     cat = raw_input("What website do you need? ")
     #fetch password needed and display it
-    p = passwords.find({"user":user, "website":cat.strip()},{"password":1})
-    print cipher.decrypt(p)
+    p = passwords.find_one({"user":user, "website":cat.strip()},{"password":1})
+    print "Your password is "+ cipher.decrypt(p['password'])
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
@@ -106,14 +106,18 @@ if __name__ == "__main__":
     if web.strip() != "New":
         web_in = (web.strip(),)
         #check if user and pin match
-        check_pin = cipher.decrypt(exist)
-        if exist is None:
+        user = users.find_one({"user":web}, {"user":1})
+        print user['user']
+        exist = users.find_one({"user":web},{"pincode":1})
+        print exist['pincode']
+
+        if user is None:
             sys.exit("No user found, Quitting!")
         else:
             print "User found"
             pin = raw_input("Please enter your pincode: ")
 
-            if pin.strip() == check_pin:
+            if pin.strip() == cipher.decrypt(exist['pincode']):
                 print "Identity verified"
                 decision(web)
             else:
@@ -127,8 +131,12 @@ if __name__ == "__main__":
                 flag = True
             else:
                 print "Invalid Pincode"
-        input2_s = [user.strip(), cipher.encrypt(password.strip())]
+
         #insert new user and pincode into collection
+        users.insert_one({
+            "user":user,
+            "pincode":cipher.encrypt(password.strip())
+        })
 
         print "User has been added"
         decision(user)
