@@ -2,6 +2,8 @@ import hashlib
 import base64
 import sys
 import pymongo
+import random
+import string
 from pymongo import MongoClient
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -12,6 +14,8 @@ client = MongoClient()
 db = client.test
 users = db.users
 passwords = db.passwords
+
+PASSWORD_CHARSET =  string.ascii_letters+string.digits
 
 
 #Encryption/Decryption class
@@ -54,10 +58,28 @@ def RepresentsInt(s):
     except ValueError:
         return False
 
+def gen_random_string(char_set, length):
+        if not hasattr(gen_random_string, "rng"):
+            gen_random_string.rng = random.SystemRandom()  # Create a static variable
+        return ''.join([gen_random_string.rng.choice(char_set) for _ in xrange(length)])
+
+
+
+
 #Method that allows user to store a new password
 def store_password(user):
     website = raw_input('Please enter what the password is for? ')
-    new_pass = raw_input('Please enter a password: ')
+    generate = raw_input('Do you want to generate a password for '+website+'? (Y/N) ')
+    if generate.strip() == 'Y':
+        new_pass = gen_random_string(PASSWORD_CHARSET, 10)
+
+    elif generate.strip() == 'N':
+        new_pass = raw_input('Please enter a password: ')
+
+    else:
+        print "A password has been created for you!"
+        new_pass = gen_random_string(PASSWORD_CHARSET, 10)
+
     hashed_password = cipher.encrypt(new_pass)
     input_s = [website, hashed_password, user]
     #insert password with user given
@@ -102,13 +124,13 @@ if __name__ == "__main__":
     pin = 0
     cat = ""
     password = ""
-    web = raw_input("Who are you? (Type New to create a new user) ")
-    if web.strip().upper() != "NEW":
-        web_in = (web.strip(),)
+    user_input = raw_input("Who are you? (Type New to create a new user) ")
+    if user_input.strip().upper() != "NEW":
+        web_in = (user_input.strip(),)
         #check if user and pin match
-        user = users.find_one({"user":web}, {"user":1})
+        user = users.find_one({"user":user_input}, {"user":1})
         #print user['user']
-        exist = users.find_one({"user":web},{"pincode":1})
+        exist = users.find_one({"user":user_input},{"pincode":1})
         #print exist['pincode']
 
         if user is None:
@@ -119,10 +141,10 @@ if __name__ == "__main__":
 
             if pin.strip() == cipher.decrypt(exist['pincode']):
                 print "Identity verified"
-                decision(web)
+                decision(user_input)
             else:
                 sys.exit("Wrong pin code, Quitting!")
-    elif web.strip().upper() == "NEW":
+    elif user_input.strip().upper() == "NEW":
         user = raw_input("Please enter your username: ")
         flag = False
         while(flag != True):
