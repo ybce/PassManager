@@ -2,6 +2,7 @@ import hashlib
 import base64
 import sys
 import pymongo
+import getpass
 import random
 import string
 import pyperclip
@@ -75,7 +76,7 @@ def store_password(user):
         new_pass = gen_random_string(PASSWORD_CHARSET, 10)
 
     elif generate.strip() == 'N':
-        new_pass = raw_input('Please enter a password: ')
+        new_pass = getpass.getpass('Please enter a password: ')
 
     else:
         print "A password has been created for you!"
@@ -90,6 +91,12 @@ def store_password(user):
         "user":user
         })
     print ("Password has been added successfully!")
+    quit = input("Do you want to quit? Y/N")
+    if (quit.upper() == 'Y'):
+        sys.exit()
+    elif (quit.upper == 'N'):
+        decision(user)
+
 
 
 #Method that takes user through retrieving a password
@@ -104,6 +111,11 @@ def retrieve_password(user):
     p = passwords.find_one({"user":user, "website":cat.strip()},{"password":1})
     pyperclip.copy(cipher.decrypt(p['password']))
     print "Your password has been added to the clipboard!"
+    quit = input("Do you want to quit? Y/N")
+    if(quit.upper() == 'Y'):
+        sys.exit()
+    elif(quit.upper == 'N'):
+        decision(user)
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
@@ -139,7 +151,7 @@ if __name__ == "__main__":
             sys.exit("No user found, Quitting!")
         else:
             print "User found"
-            pin = raw_input("Please enter your pincode: ")
+            pin = getpass.getpass("Please enter your pincode: ")
 
             if pin.strip() == cipher.decrypt(exist['pincode']):
                 print "Identity verified"
@@ -150,7 +162,7 @@ if __name__ == "__main__":
         user = raw_input("Please enter your username: ")
         flag = False
         while(flag != True):
-            password = raw_input("Please enter a 4-digit pincode: ")
+            password = getpass.getpass("Please enter a 4-digit pincode: ")
             if (len(password.strip()) == 4) & (RepresentsInt(password.strip())):
                 flag = True
             else:

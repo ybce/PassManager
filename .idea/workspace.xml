@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="664d5216-a203-4aa4-8fb2-5d111a35532e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/library.zip" afterPath="$PROJECT_DIR$/dist/library.zip" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/pass2.exe" afterPath="$PROJECT_DIR$/dist/pass2.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pass2.py" afterPath="$PROJECT_DIR$/pass2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,21 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="studying.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/studying.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="pass2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pass2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="105" column="58" lean-forward="false" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="58" />
+            <state relative-caret-position="1071">
+              <caret line="168" column="39" lean-forward="true" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -42,13 +35,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dsfsdfs.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dsfsdfs.py">
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="9" column="55" lean-forward="false" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+            <state relative-caret-position="68">
+              <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,7 +88,6 @@
         <option value="$PROJECT_DIR$/twitter.py" />
         <option value="$PROJECT_DIR$/facebook.py" />
         <option value="$PROJECT_DIR$/fb.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/graph" />
         <option value="$PROJECT_DIR$/pass.py" />
         <option value="$PROJECT_DIR$/testGUI.py" />
@@ -104,6 +96,7 @@
         <option value="$PROJECT_DIR$/twitter2.py" />
         <option value="$PROJECT_DIR$/studying.py" />
         <option value="$PROJECT_DIR$/dsfsdfs.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/pass2.py" />
       </list>
     </option>
@@ -151,24 +144,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
   </component>
-  <component name="RunManager" selected="Python.pass2">
-    <configuration default="false" name="graph" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="untitled" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/graph" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.setup">
     <configuration default="false" name="pass2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -233,6 +209,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="untitled" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dsfsdfs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="untitled" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/setup.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -372,19 +365,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.graph" />
-      <item index="1" class="java.lang.String" itemvalue="Python.pass2" />
-      <item index="2" class="java.lang.String" itemvalue="Python.MongoDB" />
-      <item index="3" class="java.lang.String" itemvalue="Python.studying" />
-      <item index="4" class="java.lang.String" itemvalue="Python.dsfsdfs" />
+      <item index="0" class="java.lang.String" itemvalue="Python.pass2" />
+      <item index="1" class="java.lang.String" itemvalue="Python.MongoDB" />
+      <item index="2" class="java.lang.String" itemvalue="Python.studying" />
+      <item index="3" class="java.lang.String" itemvalue="Python.dsfsdfs" />
+      <item index="4" class="java.lang.String" itemvalue="Python.setup" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pass2" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MongoDB" />
-        <item index="2" class="java.lang.String" itemvalue="Python.dsfsdfs" />
-        <item index="3" class="java.lang.String" itemvalue="Python.studying" />
-        <item index="4" class="java.lang.String" itemvalue="Python.graph" />
+        <item index="0" class="java.lang.String" itemvalue="Python.setup" />
+        <item index="1" class="java.lang.String" itemvalue="Python.pass2" />
+        <item index="2" class="java.lang.String" itemvalue="Python.MongoDB" />
+        <item index="3" class="java.lang.String" itemvalue="Python.dsfsdfs" />
+        <item index="4" class="java.lang.String" itemvalue="Python.studying" />
       </list>
     </recent_temporary>
   </component>
@@ -495,7 +488,7 @@
         <state relative-caret-position="90">
           <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
           <folding>
-            <element signature="e#0#32#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -558,7 +551,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#32#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -613,7 +606,7 @@
         <state relative-caret-position="90">
           <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
           <folding>
-            <element signature="e#0#32#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -759,16 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/twitter2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
@@ -830,10 +813,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pass2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="105" column="58" lean-forward="false" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="58" />
+        <state relative-caret-position="1071">
+          <caret line="168" column="39" lean-forward="true" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
