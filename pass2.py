@@ -4,6 +4,7 @@ import sys
 import pymongo
 import random
 import string
+import pyperclip
 from pymongo import MongoClient
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -101,7 +102,8 @@ def retrieve_password(user):
     cat = raw_input("What website do you need? ")
     #fetch password needed and display it
     p = passwords.find_one({"user":user, "website":cat.strip()},{"password":1})
-    print "Your password is "+ cipher.decrypt(p['password'])
+    pyperclip.copy(p['password'])
+    print "Your password has been copied to the clipboard!"
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
