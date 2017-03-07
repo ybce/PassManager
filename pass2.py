@@ -102,8 +102,8 @@ def retrieve_password(user):
     cat = raw_input("What website do you need? ")
     #fetch password needed and display it
     p = passwords.find_one({"user":user, "website":cat.strip()},{"password":1})
-    pyperclip.copy(p['password'])
-    print "Your password has been copied to the clipboard!"
+    pyperclip.copy(cipher.decrypt(p['password']))
+    print "Your password has been added to the clipboard!"
 
 
 #Allows user to decide whether he wants to store or retrieve passwords
