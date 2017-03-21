@@ -10,6 +10,7 @@ from pymongo import MongoClient
 from Crypto.Cipher import AES
 from Crypto import Random
 import os
+import AESCipher as Cipher
 
 
 client = MongoClient()
@@ -21,36 +22,9 @@ PASSWORD_CHARSET =  string.ascii_letters+string.digits
 
 
 #Encryption/Decryption class
-class AESCipher(object):
-
-    def __init__(self, key):
-        self.bs = 32
-        self.key = hashlib.sha256(key.encode()).digest()
-
-
-    def encrypt(self,raw):
-        raw = self._pad(raw)
-        iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return base64.b64encode(iv + cipher.encrypt(raw))
-
-
-    def decrypt(self,enc):
-        enc = base64.b64decode(enc)
-        iv = enc[:AES.block_size]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
-
-
-    def _pad(self, s):
-        return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
-
-    @staticmethod
-    def _unpad(s):
-        return s[:-ord(s[len(s)-1:])]
 
 #Initializing cipher object
-cipher =AESCipher(key='MyKey')
+cipher =Cipher.AESCipher(key='MyKey')
 
 #Check if a string represents an int
 def RepresentsInt(s):
@@ -72,10 +46,10 @@ def gen_random_string(char_set, length):
 def store_password(user):
     website = raw_input('Please enter what the password is for? ')
     generate = raw_input('Do you want to generate a password for '+website+'? (Y/N) ')
-    if generate.strip() == 'Y':
+    if generate.upper().strip() == 'Y':
         new_pass = gen_random_string(PASSWORD_CHARSET, 10)
 
-    elif generate.strip() == 'N':
+    elif generate.upper().strip() == 'N':
         new_pass = getpass.getpass('Please enter a password: ')
 
     else:
@@ -92,9 +66,9 @@ def store_password(user):
         })
     print ("Password has been added successfully!")
     quit = input("Do you want to quit? Y/N")
-    if (quit.upper() == 'Y'):
+    if (quit.upper().strip() == 'Y'):
         sys.exit()
-    elif (quit.upper == 'N'):
+    elif (quit.upper().strip() == 'N'):
         decision(user)
 
 
@@ -106,7 +80,7 @@ def retrieve_password(user):
     print "Your websites are:"
     for w in passwords.find({"user":user}):
         print w["website"]
-    cat = raw_input("What website do you need? ")
+    cat = raw_input("Which website do you need? ")
     #fetch password needed and display it
     p = passwords.find_one({"user":user, "website":cat.strip()},{"password":1})
     pyperclip.copy(cipher.decrypt(p['password']))
