@@ -47,7 +47,15 @@ def store_password(user):
     website = raw_input('Please enter what the password is for? ')
     generate = raw_input('Do you want to generate a password for '+website+'? (Y/N) ')
     if generate.upper().strip() == 'Y':
-        new_pass = gen_random_string(PASSWORD_CHARSET, 10)
+
+        char = raw_input("How long do you want the password to be?")
+        if(RepresentsInt(char)):
+            char_length = int(char)
+            new_pass = gen_random_string(PASSWORD_CHARSET, char_length)
+        else:
+            print("Please enter a valid length")
+            store_password(user)
+
 
     elif generate.upper().strip() == 'N':
         new_pass = getpass.getpass('Please enter a password: ')
@@ -65,6 +73,8 @@ def store_password(user):
         "user":user
         })
     print ("Password has been added successfully!")
+    print("The password has been added to your clipboard")
+    pyperclip.copy(new_pass)
     quit = input("Do you want to quit? Y/N")
     if (quit.upper().strip() == 'Y'):
         sys.exit()
