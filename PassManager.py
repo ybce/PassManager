@@ -10,13 +10,16 @@ from pymongo import MongoClient
 from Crypto.Cipher import AES
 from Crypto import Random
 import os
+import subprocess
 import AESCipher as Cipher
 
 
-client = MongoClient()
-db = client.test
-users = db.users
-passwords = db.passwords
+
+
+
+
+
+
 
 PASSWORD_CHARSET =  string.ascii_letters+string.digits
 
@@ -119,6 +122,16 @@ def decision(user):
 
 #Main method: Logs in the user or allows you to create a new user
 if __name__ == "__main__":
+    # Run mongodb executable when program launches
+    cmd = r'C:\\Program Files\\MongoDB\\Server\\3.4\\bin\\mongod.exe'
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, creationflags=0x08000000)
+    #process.wait()
+
+    client = MongoClient()
+    db = client.test
+    users = db.users
+    passwords = db.passwords
+
     pin = 0
     cat = ""
     password = ""
@@ -136,6 +149,7 @@ if __name__ == "__main__":
         else:
             print "User found"
             pin = getpass.getpass("Please enter your pincode: ")
+
 
             if pin.strip() == cipher.decrypt(exist['pincode']):
                 print "Identity verified"
